@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "esnext"],
+    "module": "commonjs",
+    "target": "es2020",
+    "strict": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  }
+}

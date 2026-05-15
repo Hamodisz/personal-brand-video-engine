@@ -1,0 +1,11 @@
+node_modules/
+out/
+public/*.mp4
+public/*.webm
+public/captions.json
+public/engine_config.json
+public/current_script.json
+CLAUDE.md
+*.DS_Store
+.env
+.env.*

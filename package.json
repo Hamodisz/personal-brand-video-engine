@@ -1,0 +1,19 @@
+{
+  "name": "personal-brand",
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render:all": "remotion render src/index.ts Minimal --output out/v1_minimal.mp4 && remotion render src/index.ts Cinematic --output out/v2_cinematic.mp4 && remotion render src/index.ts WebsitePromo --output out/v3_website.mp4 && remotion render src/index.ts Combined --output out/v4_combined.mp4"
+  },
+  "dependencies": {
+    "@remotion/captions": "^4.0.458",
+    "@remotion/cli": "4.0.448",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "remotion": "4.0.448"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "typescript": "^5.0.0"
+  }
+}
