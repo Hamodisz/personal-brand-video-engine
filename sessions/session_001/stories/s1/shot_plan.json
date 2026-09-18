@@ -1,0 +1,86 @@
+{
+  "audio_source": "rough_cut.mp4",
+  "duration_s": 128.6,
+  "shots": [
+    {
+      "id": 2,
+      "style": "talking_head",
+      "start_s": 0.0,
+      "end_s": 3.26,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 3,
+      "style": "talking_head",
+      "start_s": 3.26,
+      "end_s": 25.58,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 4,
+      "style": "talking_head",
+      "start_s": 25.58,
+      "end_s": 38.68,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 6,
+      "style": "talking_head",
+      "start_s": 38.68,
+      "end_s": 55.2,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 7,
+      "style": "talking_head",
+      "start_s": 55.2,
+      "end_s": 67.64,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 8,
+      "style": "talking_head",
+      "start_s": 67.64,
+      "end_s": 77.12,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 9,
+      "style": "talking_head",
+      "start_s": 77.12,
+      "end_s": 87.16,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 10,
+      "style": "talking_head",
+      "start_s": 87.16,
+      "end_s": 94.36,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 11,
+      "style": "talking_head",
+      "start_s": 94.36,
+      "end_s": 113.96,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 12,
+      "style": "talking_head",
+      "start_s": 113.96,
+      "end_s": 128.6,
+      "transition_out": "cut",
+      "sfx": []
+    }
+  ]
+}

@@ -9,3 +9,6 @@ CLAUDE.md
 *.DS_Store
 .env
 .env.*
+sessions/*/normalized.mp4
+sessions/*/stories/*/rough_cut.mp4
+public/.session_preview_backup/

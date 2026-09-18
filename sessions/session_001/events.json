@@ -1,0 +1,136 @@
+[
+  {
+    "event_id": "e1",
+    "type": "setup",
+    "start_s": 0.0,
+    "end_s": 21.9,
+    "summary": "Mohammad describes his multi-window Claude session context before focusing on the chatbot demo window.",
+    "explanation": "Establishes that Mohammad is juggling multiple projects simultaneously, which frames why he wants the chatbot demo isolated and self-contained.",
+    "importance": "supporting",
+    "depends_on": []
+  },
+  {
+    "event_id": "e2",
+    "type": "goal",
+    "start_s": 22.3,
+    "end_s": 43.9,
+    "summary": "Mohammad states his explicit requirements to Claude: no real API keys, no real backend, mock responses only, isolated folder, no touching existing files — a safe demo for video recording.",
+    "explanation": "These constraints are the baseline against which Claude's later security flag becomes meaningful; the goal of safety is what makes the discovery surprising.",
+    "importance": "essential",
+    "depends_on": []
+  },
+  {
+    "event_id": "e3",
+    "type": "result",
+    "start_s": 44.9,
+    "end_s": 58.0,
+    "summary": "Claude builds the chatbot and verifies it: server starts, chat UI works, mock replies return, no console errors, no existing files touched.",
+    "explanation": "Confirms the initial goal was fulfilled before the unexpected complication arises, so the viewer knows the baseline demo was working.",
+    "importance": "supporting",
+    "depends_on": [
+      "e2"
+    ]
+  },
+  {
+    "event_id": "e4",
+    "type": "discovery",
+    "start_s": 63.1,
+    "end_s": 79.7,
+    "summary": "Claude scans the environment, finds real API keys present (Anthropic, ElevenLabs, Pexels, others), and stops to flag the issue rather than quietly using them.",
+    "explanation": "This is the pivotal event — Claude's proactive detection of real credentials is what triggers the security decision that shapes the rest of the session.",
+    "importance": "essential",
+    "depends_on": [
+      "e2"
+    ]
+  },
+  {
+    "event_id": "e5",
+    "type": "problem",
+    "start_s": 79.9,
+    "end_s": 92.3,
+    "summary": "Claude explains the security risk: wiring a raw API key into client-side JavaScript exposes it to anyone watching the recording or opening DevTools/network tab.",
+    "explanation": "Defines exactly what is at stake, which is required context for understanding why Mohammad's subsequent decision about server-side-only handling matters.",
+    "importance": "essential",
+    "depends_on": [
+      "e4"
+    ]
+  },
+  {
+    "event_id": "e6",
+    "type": "conflict",
+    "start_s": 92.5,
+    "end_s": 102.0,
+    "summary": "Claude asks Mohammad how he wants to handle it; Mohammad decides he does want real API responses — not mocks — but only under secure conditions.",
+    "explanation": "The tension between wanting a more impressive demo and the security constraint is what drives the architectural change that follows.",
+    "importance": "essential",
+    "depends_on": [
+      "e4",
+      "e5"
+    ]
+  },
+  {
+    "event_id": "e7",
+    "type": "decision",
+    "start_s": 102.2,
+    "end_s": 112.2,
+    "summary": "Mohammad sets the terms: real API key must stay server-side only, never exposed in the browser, and the entire setup remains local — nothing deployed.",
+    "explanation": "This decision dictates exactly how Claude must rewrite the server, making it the direct cause of the architectural transformation.",
+    "importance": "essential",
+    "depends_on": [
+      "e5",
+      "e6"
+    ]
+  },
+  {
+    "event_id": "e8",
+    "type": "solution",
+    "start_s": 112.4,
+    "end_s": 119.6,
+    "summary": "Claude rewrites the server to make the Anthropic API call from the back end only, retaining mock files as a safety fallback.",
+    "explanation": "This is the implementation of Mohammad's decision; understanding this rewrite is necessary to interpret the live test results that follow.",
+    "importance": "essential",
+    "depends_on": [
+      "e7"
+    ]
+  },
+  {
+    "event_id": "e9",
+    "type": "demonstration",
+    "start_s": 119.8,
+    "end_s": 133.9,
+    "summary": "Mohammad tests the chatbot in English — asking for a YouTube channel name — and gets a real generated answer with actual suggestions, not a canned mock reply.",
+    "explanation": "Proves the server-side API call works correctly in practice, validating the solution.",
+    "importance": "essential",
+    "depends_on": [
+      "e8"
+    ]
+  },
+  {
+    "event_id": "e10",
+    "type": "demonstration",
+    "start_s": 132.3,
+    "end_s": 139.4,
+    "summary": "Mohammad tests the chatbot in Arabic and confirms it replies naturally in Arabic as well.",
+    "explanation": "Extends the validation to multilingual capability, completing the demo's scope and showing the solution is robust beyond a single language.",
+    "importance": "supporting",
+    "depends_on": [
+      "e9"
+    ]
+  },
+  {
+    "event_id": "e11",
+    "type": "lesson",
+    "start_s": 139.6,
+    "end_s": 154.3,
+    "summary": "Mohammad summarizes the full loop: he asked for a safe mock demo, Claude built it, Claude caught the security issue unprompted, he made the key-handling call, and the result is a working local bilingual assistant.",
+    "explanation": "Frames the session's takeaway — Claude's proactive security flagging rather than silent key usage — which is the core insight of the recording.",
+    "importance": "essential",
+    "depends_on": [
+      "e2",
+      "e4",
+      "e7",
+      "e9",
+      "e10"
+    ]
+  }
+]

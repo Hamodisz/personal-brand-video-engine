@@ -1,0 +1,88 @@
+[
+  {
+    "story_id": "s1",
+    "title": "Claude Caught a Security Risk I Didn't Even Think About",
+    "category": "story",
+    "central_idea": "Claude proactively flagged exposed API keys in the environment instead of silently using them, forcing a better architectural decision.",
+    "audience": "Developers and builders who use AI coding assistants and care about security hygiene",
+    "required_events": [
+      "e2",
+      "e4",
+      "e5",
+      "e6",
+      "e7",
+      "e8",
+      "e9",
+      "e11"
+    ],
+    "optional_events": [
+      "e1",
+      "e3",
+      "e10"
+    ],
+    "unnecessary_events": [],
+    "hook_candidates": [
+      "I asked Claude to build a safe demo with no real API keys — then Claude found my real API keys and stopped everything.",
+      "Most AI tools would have just used the credentials sitting in your environment. Claude didn't.",
+      "I thought I was being careful. Claude was being more careful than me."
+    ]
+  },
+  {
+    "story_id": "s2",
+    "title": "How to Keep API Keys Safe in a Local Chatbot Demo",
+    "category": "tutorial",
+    "central_idea": "When building a browser-facing chatbot demo, API keys must live server-side only — never in client JavaScript — even for a local recording.",
+    "audience": "Developers building demos or prototypes who may not have considered client-side key exposure",
+    "required_events": [
+      "e5",
+      "e7",
+      "e8",
+      "e9"
+    ],
+    "optional_events": [
+      "e2",
+      "e4",
+      "e6",
+      "e10",
+      "e11"
+    ],
+    "unnecessary_events": [
+      "e1",
+      "e3"
+    ],
+    "hook_candidates": [
+      "If your API key is in your frontend JavaScript, anyone watching your screen recording can steal it.",
+      "Here's the one rule for demo chatbots: the API key never leaves the server.",
+      "A DevTools tab or a network inspector is all it takes to expose a raw API key in client-side code."
+    ]
+  },
+  {
+    "story_id": "s3",
+    "title": "I Built a Bilingual Personal-Brand Chatbot in One Session",
+    "category": "build_in_public",
+    "central_idea": "Starting from a safe mock demo and one security pivot, Mohammad ended up with a working local bilingual AI assistant ready for video.",
+    "audience": "Creators and indie builders interested in shipping personal-brand tools quickly with AI assistance",
+    "required_events": [
+      "e2",
+      "e3",
+      "e8",
+      "e9",
+      "e10",
+      "e11"
+    ],
+    "optional_events": [
+      "e4",
+      "e5",
+      "e6",
+      "e7"
+    ],
+    "unnecessary_events": [
+      "e1"
+    ],
+    "hook_candidates": [
+      "I went from 'mock demo only' to a real bilingual AI chatbot in a single session — here's what happened in between.",
+      "Ask it a question in English, it answers in English. Ask in Arabic, it answers in Arabic. Built this in one sitting.",
+      "The goal was a simple fake demo for a video. I ended up with something actually worth shipping."
+    ]
+  }
+]
