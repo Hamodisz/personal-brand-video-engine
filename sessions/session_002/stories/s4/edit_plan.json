@@ -1,0 +1,161 @@
+[
+  {
+    "decision": "keep",
+    "start_s": 22.84,
+    "end_s": 57.0,
+    "event_ids": [
+      "e3"
+    ],
+    "reason": "Mohammad audio narration explains the exact brief: isolated folder, no real API, mock only. The on-screen Claude Code session is visible context. This is the story's premise — essential.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "trim",
+    "start_s": 57.0,
+    "end_s": 90.0,
+    "trim_end_s": 72.0,
+    "event_ids": [],
+    "reason": "Claude confirms isolation and begins creating the chatbot-demo directory. The mkdir command and empty directory confirmation at 72s is the key beat; the remaining 18s of static Claude Code panel scrolling before the HTML file write begins adds nothing new to the story.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 72.0,
+    "end_s": 90.0,
+    "event_ids": [],
+    "reason": "Directory created (72s result), then the HTML file write begins at 88.5s — these are the first visible build actions, establishing that Claude is actually working in the isolated folder.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "trim",
+    "start_s": 90.0,
+    "end_s": 144.0,
+    "trim_end_s": 126.0,
+    "event_ids": [],
+    "reason": "File writes for index.html, style.css, and app.js happen across this span. The key story beat is watching the files get created; 90–126s captures those writes and the confirmation messages. The ffprobe/ffmpeg commands from the SportSyncAI window (102–126s) are unrelated sidebar activity — cutting to 126s keeps the demo-build thread without losing essential beats.",
+    "confidence": "uncertain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 126.0,
+    "end_s": 147.0,
+    "event_ids": [],
+    "reason": "Claude starts the Python HTTP server and gets a 200 response — the server-is-up moment is a real milestone beat in the story. Audio at 126.5s continues the narration thread.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "trim",
+    "start_s": 147.0,
+    "end_s": 204.0,
+    "trim_end_s": 180.0,
+    "event_ids": [],
+    "reason": "Claude uses claude-in-chrome to navigate the browser to localhost:8743 and interact with the UI. The key beats are navigation (157–160s), clicking into the input (181–188s), and typing a test message. Trimming to 180s keeps the navigation and initial browser verification without over-extending on the repetitive screenshot loop.",
+    "confidence": "uncertain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 180.0,
+    "end_s": 207.0,
+    "event_ids": [
+      "e13"
+    ],
+    "reason": "Claude clicks the chat input, types 'How does this work?', presses Enter, and captures the screenshot showing mock reply working. Then reads console — no errors. This is the verified-working beat. Essential.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "chat UI in browser",
+    "highlight_note": "mock reply appearing in the chat bubble",
+    "speed": 1.0
+  },
+  {
+    "decision": "remove",
+    "start_s": 207.0,
+    "end_s": 288.0,
+    "event_ids": [],
+    "reason": "This section is the SportSyncAI sidebar: LEVORE email drafting, GitHub repo browsing, partner-kit history checks, and API key valuation discussion — all entirely unrelated to the chatbot demo story. Mohammad's audio narration at 228.6s and 232.8s explicitly labels this as 'browsing' and a separate business decision. Removing keeps the chatbot story coherent.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 288.0,
+    "end_s": 312.0,
+    "event_ids": [
+      "e16"
+    ],
+    "reason": "Claude writes server.py and patches app.js to call /api/chat — this is the pivot from mock-only to real-API-via-proxy. Essential narrative beat showing why the story escalates beyond the original brief.",
+    "confidence": "certain",
+    "zoom_target": "terminal showing server.py write and app.js edit",
+    "highlight_note": "proxy server being created to keep API key server-side",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 312.0,
+    "end_s": 345.0,
+    "event_ids": [
+      "e17"
+    ],
+    "reason": "Claude starts the proxy with ANTHROPIC_API_KEY injected, curls POST /api/chat, and gets back real response '{\"reply\": \"hello\"}'. This is the first live API call — a critical story beat confirming the proxy works.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal curl result",
+    "highlight_note": "the {\"reply\": \"hello\"} response confirming real Claude API is live",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 345.0,
+    "end_s": 360.0,
+    "event_ids": [
+      "e19"
+    ],
+    "reason": "Claude opens a new browser tab and navigates to localhost:8743 — the chatbot UI loads showing the empty state with suggested prompts. Sets up the demonstration beat.",
+    "confidence": "certain",
+    "zoom_target": "browser showing chatbot empty state",
+    "highlight_note": "polished chat UI loading successfully",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 360.0,
+    "end_s": 375.0,
+    "event_ids": [
+      "e20"
+    ],
+    "reason": "Claude types 'What's a good name for a tech YouTube channel?' and presses Enter. The chatbot returns a real multi-option answer — not a mock reply. Mohammad audio confirms 'there's a real generated answer'. This is the demo's success moment.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "chat UI showing the AI response",
+    "highlight_note": "real Claude API response with multiple name suggestions and follow-up question",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 375.0,
+    "end_s": 391.0,
+    "event_ids": [
+      "e21"
+    ],
+    "reason": "An unexpected Arabic message appears in the chat that Mohammad did not visibly send. Audio at 372.1s notes 'something odd shows up here'. A second curl to the live SportSyncAI endpoint is running. The session ends mid-investigation — this unresolved surprise is the story's central hook and must be shown honestly and completely.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "chat UI showing the Arabic message",
+    "highlight_note": "the unexplained Arabic text appearing as an unsolicited chat message",
+    "speed": 1.0
+  }
+]

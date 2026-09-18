@@ -3,8 +3,18 @@ and an audio presence check -- merged into one timeline BEFORE any event/story
 reasoning happens. Audio is one signal among several, never required.
 
 Verified against a real recording+session before being written (not guessed):
-- easyocr is installed and importable; the `tesseract` binary is not, and
-  Homebrew isn't available to add it -- easyocr needs no external binary.
+- OCR engine: macOS's native Vision framework (VNRecognizeTextRequest, accurate
+  mode), via pyobjc. Benchmarked head-to-head against easyocr on the same 10
+  real frames from this project's own test recording: easyocr averaged
+  16.45s/frame; Vision-accurate averaged ~0.4s/frame after a one-time ~50s
+  per-process model warmup (first call only) -- roughly 40x faster with equal
+  or better text quality (easyocr's own output had fewer character errors than
+  Vision's *Fast* mode, but Vision's *Accurate* mode matched or beat easyocr
+  while still being ~40x faster). Because the ~50s cost is a one-time per-
+  PROCESS warmup, not per-call, OCR stays sequential in a single process
+  rather than parallelized across worker processes -- splitting frames across
+  N processes would make each one pay that ~50s warmup independently, which
+  would dominate/negate the benefit for any realistic frame count.
 - Claude Code session logs live at ~/.claude/projects/<slugified-cwd>/*.jsonl,
   one line per event, with real ISO timestamps and tool_use/tool_result pairs.
   Cross-checked a real recording's session log against the actual video and
@@ -23,7 +33,7 @@ from typing import Optional
 from . import media
 
 MAX_OCR_FRAMES = 200  # cost cap; a much longer recording needs smarter sampling, not a bigger cap
-_easyocr_reader = None
+_vision_warm = False
 
 
 def detect_scene_changes(video_path, threshold: float = 0.1, ffmpeg: Optional[str] = None) -> list:
@@ -51,13 +61,30 @@ def fixed_interval_samples(duration_s: float, interval: float = 3.0) -> list:
     return [round(i * interval, 2) for i in range(n) if i * interval <= duration_s]
 
 
-def _get_easyocr_reader():
-    global _easyocr_reader
-    if _easyocr_reader is None:
-        import easyocr
-        print("  (loading easyocr model, one-time cost per process)")
-        _easyocr_reader = easyocr.Reader(["en"], gpu=False, verbose=False)
-    return _easyocr_reader
+def _vision_ocr(image_path: str) -> str:
+    import Vision
+    import Quartz
+    from Cocoa import NSURL
+
+    global _vision_warm
+    if not _vision_warm:
+        print("  (Vision framework accurate-mode model warmup, one-time ~50s cost per process)")
+        _vision_warm = True
+
+    url = NSURL.fileURLWithPath_(str(image_path))
+    ci_image = Quartz.CIImage.imageWithContentsOfURL_(url)
+    handler = Vision.VNImageRequestHandler.alloc().initWithCIImage_options_(ci_image, None)
+    request = Vision.VNRecognizeTextRequest.alloc().init()
+    request.setRecognitionLevel_(0)  # 0 = accurate -- benchmarked, matches/beats easyocr quality
+    success, error = handler.performRequests_error_([request], None)
+    if not success:
+        return ""
+    texts = []
+    for obs in request.results():
+        top = obs.topCandidates_(1)
+        if top:
+            texts.append(str(top[0].string()))
+    return " ".join(texts).strip()
 
 
 def ocr_frame_at(video_path, t: float, ffmpeg: Optional[str] = None) -> str:
@@ -65,9 +92,7 @@ def ocr_frame_at(video_path, t: float, ffmpeg: Optional[str] = None) -> str:
     with tempfile.NamedTemporaryFile(suffix=".png", delete=True) as tmp:
         subprocess.run([ffmpeg, "-y", "-ss", f"{t:.3f}", "-i", str(video_path),
                         "-frames:v", "1", tmp.name], capture_output=True, check=True)
-        reader = _get_easyocr_reader()
-        results = reader.readtext(tmp.name, detail=0, paragraph=True)
-        return " ".join(str(r) for r in results).strip()
+        return _vision_ocr(tmp.name)
 
 
 def ocr_signals(video_path, timestamps: list, ffmpeg: Optional[str] = None) -> list:

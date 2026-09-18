@@ -1,0 +1,185 @@
+[
+  {
+    "decision": "keep",
+    "start_s": 22.84,
+    "end_s": 44.22,
+    "event_ids": [
+      "e3"
+    ],
+    "reason": "Mohammad narrates the chatbot brief on audio while the Claude Code window is visible — sets up the story's premise (isolated folder, no real API, mock only).",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 44.22,
+    "end_s": 60.0,
+    "event_ids": [
+      "e4"
+    ],
+    "reason": "Audio narration confirms Claude will build fully outside tracked repos; Claude runs ls to check Desktop — essential confirmation beat before the build starts.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "trim",
+    "start_s": 60.0,
+    "end_s": 88.5,
+    "trim_end_s": 87.0,
+    "event_ids": [],
+    "reason": "Claude checks Desktop, creates directory, confirms isolation — useful context but runs long (28s). Trim to the point where the directory is confirmed and writing begins; the SportSyncAI sidebar audio (82.8s) is off-topic for this story.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 88.5,
+    "end_s": 120.0,
+    "event_ids": [
+      "e8"
+    ],
+    "reason": "Claude writes index.html and style.css — the actual file creation is visible in the terminal. Essential build beat.",
+    "confidence": "certain",
+    "speed": 1.5,
+    "zoom_target": "terminal output",
+    "highlight_note": "Write tool confirming file creation paths",
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 120.0,
+    "end_s": 143.44,
+    "event_ids": [
+      "e9"
+    ],
+    "reason": "Claude writes app.js with mock response bank — completes the three-file static build. Terminal shows 178 lines written.",
+    "confidence": "certain",
+    "speed": 1.5,
+    "zoom_target": "terminal output",
+    "highlight_note": "app.js write confirmation and comment 'no API keys'",
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 143.44,
+    "end_s": 150.0,
+    "event_ids": [
+      "e11"
+    ],
+    "reason": "Python HTTP server starts and curl returns 200 — the first live proof the demo actually serves.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal output",
+    "highlight_note": "HTTP 200 response confirming server is live",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 150.0,
+    "end_s": 207.0,
+    "event_ids": [
+      "e12",
+      "e13"
+    ],
+    "reason": "Claude uses claude-in-chrome to navigate, click, type, press Enter, and screenshot the result — real browser verification. Terminal then reports no console errors. This is the mock-demo success moment.",
+    "confidence": "certain",
+    "speed": 1.25,
+    "zoom_target": "terminal output",
+    "highlight_note": "Enter-to-send works, mock replies appear, no console errors",
+    "preserve_realtime": false
+  },
+  {
+    "decision": "remove",
+    "start_s": 207.0,
+    "end_s": 227.1,
+    "event_ids": [],
+    "reason": "Mohammad browses GitHub templates and the SportSyncAI window handles unrelated outreach email work — off-story dead time between the mock demo verification and the security flag.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 227.1,
+    "end_s": 245.18,
+    "event_ids": [
+      "e14",
+      "e15"
+    ],
+    "reason": "The story's central moment: Claude checks environment names only, finds ANTHROPIC_API_KEY plus others, then flags that embedding a key client-side in a static page would expose it in DevTools during a public screen recording. Mohammad selects 'Local proxy server (Recommended)'. This is the entire point of the story.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal output",
+    "highlight_note": "Claude's warning about DevTools key exposure and the three-option menu",
+    "speed": 1.0
+  },
+  {
+    "decision": "remove",
+    "start_s": 245.18,
+    "end_s": 288.0,
+    "event_ids": [],
+    "reason": "Claude does unrelated SportSyncAI repo and partner-kit investigation work, Gmail email attachment operations — entirely off-story between the security decision and the proxy build.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 288.0,
+    "end_s": 312.0,
+    "event_ids": [
+      "e16"
+    ],
+    "reason": "Claude writes server.py (local proxy), edits app.js to call /api/chat with mock fallback, and patches the log_message signature — the implementation of the safe solution.",
+    "confidence": "certain",
+    "speed": 1.5,
+    "zoom_target": "terminal output",
+    "highlight_note": "server.py creation and app.js edit showing proxy call with mock fallback",
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 312.0,
+    "end_s": 342.0,
+    "event_ids": [
+      "e17"
+    ],
+    "reason": "Claude starts the proxy with ANTHROPIC_API_KEY injected server-side, curls POST /api/chat, and gets back {\"reply\": \"hello\"} — confirms the key stays on the backend and a real Claude response works.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal output",
+    "highlight_note": "curl returning {\"reply\": \"hello\"} proving real API call through proxy",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 342.0,
+    "end_s": 360.0,
+    "event_ids": [
+      "e19"
+    ],
+    "reason": "Claude opens a new browser tab and navigates to localhost:8743 — the chatbot UI loads showing the empty state with suggested prompts. Visually confirms the proxy-backed UI is up.",
+    "confidence": "certain",
+    "zoom_target": "browser",
+    "highlight_note": "Chatbot UI loading with suggested prompts",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 360.0,
+    "end_s": 375.0,
+    "event_ids": [
+      "e20"
+    ],
+    "reason": "Claude types 'What's a good name for a tech YouTube channel?', presses Enter, and the chatbot returns a real multi-option answer — confirmed not a mock reply. Mohammad narrates 'there's a real generated answer.' This is the payoff moment of the story.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "browser",
+    "highlight_note": "Real Claude-generated response with multiple name options and follow-up question",
+    "speed": 1.0
+  }
+]

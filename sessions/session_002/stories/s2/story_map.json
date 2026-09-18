@@ -1,0 +1,67 @@
+{
+  "story_id": "s2",
+  "beats": [
+    {
+      "beat": "context",
+      "event_ids": [
+        "e3",
+        "e4"
+      ],
+      "start_s": 22.84,
+      "end_s": 60.0
+    },
+    {
+      "beat": "build",
+      "event_ids": [
+        "e8",
+        "e9",
+        "e11"
+      ],
+      "start_s": 88.5,
+      "end_s": 146.4
+    },
+    {
+      "beat": "verification",
+      "event_ids": [
+        "e12",
+        "e13"
+      ],
+      "start_s": 149.1,
+      "end_s": 207.0
+    },
+    {
+      "beat": "surprising_moment",
+      "event_ids": [
+        "e14"
+      ],
+      "start_s": 226.6,
+      "end_s": 244.3
+    },
+    {
+      "beat": "decision",
+      "event_ids": [
+        "e15"
+      ],
+      "start_s": 239.9,
+      "end_s": 245.18
+    },
+    {
+      "beat": "solution",
+      "event_ids": [
+        "e16",
+        "e17"
+      ],
+      "start_s": 288.8,
+      "end_s": 342.0
+    },
+    {
+      "beat": "result",
+      "event_ids": [
+        "e19",
+        "e20"
+      ],
+      "start_s": 344.2,
+      "end_s": 375.0
+    }
+  ]
+}

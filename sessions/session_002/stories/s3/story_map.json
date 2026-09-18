@@ -1,0 +1,70 @@
+{
+  "story_id": "s3",
+  "beats": [
+    {
+      "beat": "context",
+      "event_ids": [
+        "e3",
+        "e4"
+      ],
+      "start_s": 22.84,
+      "end_s": 60.0
+    },
+    {
+      "beat": "mock_demo_verified",
+      "event_ids": [
+        "e13"
+      ],
+      "start_s": 202.0,
+      "end_s": 207.0
+    },
+    {
+      "beat": "problem",
+      "event_ids": [
+        "e14"
+      ],
+      "start_s": 226.6,
+      "end_s": 244.3
+    },
+    {
+      "beat": "decision",
+      "event_ids": [
+        "e15"
+      ],
+      "start_s": 239.9,
+      "end_s": 245.18
+    },
+    {
+      "beat": "solution",
+      "event_ids": [
+        "e16"
+      ],
+      "start_s": 288.8,
+      "end_s": 312.0
+    },
+    {
+      "beat": "attempt",
+      "event_ids": [
+        "e17"
+      ],
+      "start_s": 316.6,
+      "end_s": 342.4
+    },
+    {
+      "beat": "discovery",
+      "event_ids": [
+        "e19"
+      ],
+      "start_s": 344.2,
+      "end_s": 360.6
+    },
+    {
+      "beat": "result",
+      "event_ids": [
+        "e20"
+      ],
+      "start_s": 352.82,
+      "end_s": 375.0
+    }
+  ]
+}

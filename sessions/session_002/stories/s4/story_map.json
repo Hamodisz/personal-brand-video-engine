@@ -1,0 +1,71 @@
+{
+  "story_id": "s4",
+  "beats": [
+    {
+      "beat": "hook",
+      "event_ids": [
+        "e3"
+      ],
+      "start_s": 22.84,
+      "end_s": 57.0
+    },
+    {
+      "beat": "context",
+      "event_ids": [
+        "e3"
+      ],
+      "start_s": 57.0,
+      "end_s": 90.0
+    },
+    {
+      "beat": "build",
+      "event_ids": [
+        "e16"
+      ],
+      "start_s": 90.0,
+      "end_s": 202.0
+    },
+    {
+      "beat": "result",
+      "event_ids": [
+        "e13"
+      ],
+      "start_s": 202.0,
+      "end_s": 288.0
+    },
+    {
+      "beat": "escalation",
+      "event_ids": [
+        "e16",
+        "e17"
+      ],
+      "start_s": 288.0,
+      "end_s": 352.82
+    },
+    {
+      "beat": "demonstration",
+      "event_ids": [
+        "e19",
+        "e20"
+      ],
+      "start_s": 352.82,
+      "end_s": 372.1
+    },
+    {
+      "beat": "surprising_moment",
+      "event_ids": [
+        "e21"
+      ],
+      "start_s": 372.1,
+      "end_s": 391.0
+    },
+    {
+      "beat": "unresolved",
+      "event_ids": [
+        "e21"
+      ],
+      "start_s": 382.82,
+      "end_s": 391.0
+    }
+  ]
+}

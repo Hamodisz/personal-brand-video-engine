@@ -1,0 +1,130 @@
+[
+  {
+    "decision": "keep",
+    "start_s": 22.84,
+    "end_s": 60.0,
+    "event_ids": [
+      "e3",
+      "e4"
+    ],
+    "reason": "Mohammad narrates the brief (no real API, isolated folder, mock only) and Claude confirms it will build outside all tracked repos. This establishes the starting constraint that makes the proxy solution necessary.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "remove",
+    "start_s": 60.0,
+    "end_s": 202.82,
+    "event_ids": [],
+    "reason": "Claude builds index.html, style.css, and app.js and verifies the mock demo in a browser — all necessary background work but not part of the proxy story. The mock-demo verification result is captured cleanly at e13 (202s). This long build stretch (unrelated SportSyncAI window, GitHub browsing, ffprobe commands for an unrelated pitch video) is entirely off-topic for the proxy tutorial.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 202.82,
+    "end_s": 207.0,
+    "event_ids": [
+      "e13"
+    ],
+    "reason": "Claude reports mock demo fully verified: Enter-to-send works, keyword-matched mock replies appear, auto-scroll functions, no console errors. This is the baseline state before the real-API pivot — essential to show what we're upgrading from.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal output",
+    "highlight_note": "verified working mock demo summary",
+    "speed": 1.0
+  },
+  {
+    "decision": "remove",
+    "start_s": 207.0,
+    "end_s": 227.1,
+    "event_ids": [],
+    "reason": "Claude prepares a Gmail compose URL and closes the browser tab — unrelated SportSyncAI outreach work, not part of the proxy story.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 227.1,
+    "end_s": 245.18,
+    "event_ids": [
+      "e14",
+      "e15"
+    ],
+    "reason": "The core inciting moment: Mohammad says 'use my existing API keys', Claude scans the environment, finds ANTHROPIC_API_KEY (plus ElevenLabs, Pexels, Replicate, Blotato), then flags that embedding a key client-side in a static page would expose it in DevTools during a public screen recording. Mohammad selects 'Local proxy server (Recommended)'. This is the central problem-and-decision beat of the story.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal output and menu selection",
+    "highlight_note": "ANTHROPIC_API_KEY found; Local proxy server selected",
+    "speed": 1.0
+  },
+  {
+    "decision": "remove",
+    "start_s": 245.18,
+    "end_s": 288.0,
+    "event_ids": [],
+    "reason": "Claude checks partner-kit git history and reads a SportSyncAI GitHub repo — this is work in the SportSyncAI window entirely unrelated to building the proxy server for the personal-brand chatbot demo.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 288.0,
+    "end_s": 312.0,
+    "event_ids": [
+      "e16"
+    ],
+    "reason": "Claude writes server.py (the local Python proxy), edits app.js to call /api/chat with the mock as a fallback, and patches server.py a second time to fix a log_message signature error. This is the core implementation beat — building the solution.",
+    "confidence": "certain",
+    "speed": 1.5,
+    "zoom_target": "code editor showing server.py and app.js edits",
+    "highlight_note": "server.py written; app.js patched to call proxy with mock fallback",
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 312.0,
+    "end_s": 342.0,
+    "event_ids": [
+      "e17"
+    ],
+    "reason": "Claude starts the proxy with ANTHROPIC_API_KEY injected, then curls POST /api/chat; server responds {\"reply\": \"hello\"}. This is the first real proof the proxy works — a key verification moment.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal curl output",
+    "highlight_note": "proxy returns real response: {\"reply\": \"hello\"}",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 342.0,
+    "end_s": 360.0,
+    "event_ids": [
+      "e19"
+    ],
+    "reason": "Claude opens a new browser tab, navigates to localhost:8743, and the chatbot UI loads showing the empty state with suggested prompts. This shows the full stack is wired together and ready for a live test.",
+    "confidence": "certain",
+    "zoom_target": "browser showing chatbot UI at localhost:8743",
+    "highlight_note": "chatbot UI loaded with suggested prompts",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 360.0,
+    "end_s": 375.0,
+    "event_ids": [
+      "e20"
+    ],
+    "reason": "Mohammad's audio narrates the live test: 'What's a good name for a tech YouTube channel?' The chatbot returns a real multi-option answer with follow-up question — not a mock reply. This is the payoff: real Anthropic API call, key never touched the browser. Essential result beat.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "browser chat window showing Claude's real multi-option response",
+    "highlight_note": "real AI response with options and follow-up — not a mock reply",
+    "speed": 1.0
+  }
+]
