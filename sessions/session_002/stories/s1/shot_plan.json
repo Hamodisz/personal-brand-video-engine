@@ -1,0 +1,134 @@
+{
+  "audio_source": "rough_cut.mp4",
+  "duration_s": 303.28,
+  "shots": [
+    {
+      "id": 1,
+      "style": "talking_head",
+      "start_s": 0.0,
+      "end_s": 9.58,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 2,
+      "style": "talking_head",
+      "start_s": 9.58,
+      "end_s": 46.74,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 3,
+      "style": "talking_head",
+      "start_s": 46.74,
+      "end_s": 58.74,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 4,
+      "style": "talking_head",
+      "start_s": 58.74,
+      "end_s": 76.74,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 5,
+      "style": "talking_head",
+      "start_s": 76.74,
+      "end_s": 96.74,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 6,
+      "style": "talking_head",
+      "start_s": 96.74,
+      "end_s": 113.82,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 7,
+      "style": "talking_head",
+      "start_s": 113.82,
+      "end_s": 120.38,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 8,
+      "style": "talking_head",
+      "start_s": 120.38,
+      "end_s": 173.2,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 9,
+      "style": "talking_head",
+      "start_s": 173.2,
+      "end_s": 183.38,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 10,
+      "style": "talking_head",
+      "start_s": 183.38,
+      "end_s": 201.46,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 11,
+      "style": "talking_head",
+      "start_s": 201.46,
+      "end_s": 208.28,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 12,
+      "style": "talking_head",
+      "start_s": 208.28,
+      "end_s": 224.28,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 13,
+      "style": "talking_head",
+      "start_s": 224.28,
+      "end_s": 254.28,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 14,
+      "style": "talking_head",
+      "start_s": 254.28,
+      "end_s": 270.98,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 15,
+      "style": "talking_head",
+      "start_s": 270.98,
+      "end_s": 287.28,
+      "transition_out": "cut",
+      "sfx": []
+    },
+    {
+      "id": 16,
+      "style": "talking_head",
+      "start_s": 287.28,
+      "end_s": 303.28,
+      "transition_out": "cut",
+      "sfx": []
+    }
+  ]
+}

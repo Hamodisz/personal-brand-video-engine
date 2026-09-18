@@ -1,0 +1,339 @@
+[
+  {
+    "event_id": "e1",
+    "type": "goal",
+    "start_s": 0.0,
+    "end_s": 9.6,
+    "summary": "Mohammad begins a dual-window session: SportSyncAI main project on the left, personal-brand chatbot demo build on the right.",
+    "explanation": "Establishes the two parallel tracks that run throughout the entire recording — every subsequent event belongs to one of these two contexts.",
+    "importance": "essential",
+    "depends_on": [],
+    "sources": [
+      "audio",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e2",
+    "type": "setup",
+    "start_s": 9.6,
+    "end_s": 22.8,
+    "summary": "Left window (SportSyncAI-Main) shows finished conversations about disk cleanup, WhatsApp media management, and wearable-brand outreach emails — background noise from prior sessions.",
+    "explanation": "Contextualises why SportSyncAI Claude responses appear throughout the timeline without being the active build focus; they are residual from earlier work.",
+    "importance": "supporting",
+    "depends_on": [
+      "e1"
+    ],
+    "sources": [
+      "audio",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e3",
+    "type": "goal",
+    "start_s": 22.8,
+    "end_s": 44.2,
+    "summary": "Mohammad explains the personal-brand chatbot brief: build a polished, social-media-ready chatbot demo in an isolated folder, no real API, mock responses only, don't touch existing projects.",
+    "explanation": "Sets the exact constraints Claude must satisfy; every later decision (isolation, mock-first, proxy upgrade) traces back to this brief.",
+    "importance": "essential",
+    "depends_on": [
+      "e1"
+    ],
+    "sources": [
+      "audio",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e4",
+    "type": "decision",
+    "start_s": 44.2,
+    "end_s": 60.0,
+    "summary": "Claude confirms it will build a zero-dependency static HTML/CSS/JS demo outside every tracked repo, with mock responses only and no npm/build step.",
+    "explanation": "Locks the implementation approach; the zero-dependency choice directly determines how later proxy integration works.",
+    "importance": "essential",
+    "depends_on": [
+      "e3"
+    ],
+    "sources": [
+      "audio",
+      "ocr",
+      "terminal"
+    ]
+  },
+  {
+    "event_id": "e5",
+    "type": "attempt",
+    "start_s": 60.0,
+    "end_s": 72.2,
+    "summary": "Claude runs `ls ~/Desktop/` to confirm no existing chatbot-demo conflicts, then runs `mkdir -p ~/Desktop/chatbot-demo`.",
+    "explanation": "Isolation verification step — confirms the new directory is clean before writing any files.",
+    "importance": "essential",
+    "depends_on": [
+      "e4"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e6",
+    "type": "result",
+    "start_s": 72.2,
+    "end_s": 88.6,
+    "summary": "Directory created successfully; Claude declares it sits fully outside personal-brand, SportSyncAI-Main, and every other tracked repo.",
+    "explanation": "Satisfies the brief's safety rule; no existing files can be touched from this point forward.",
+    "importance": "essential",
+    "depends_on": [
+      "e5"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e7",
+    "type": "setup",
+    "start_s": 82.8,
+    "end_s": 112.8,
+    "summary": "In the SportSyncAI window, Mohammad pulls up a matching-layer diagram (People / Places / Experiences) and asks Claude to explain it simply because he's busy watching the demo build.",
+    "explanation": "Opens a parallel SportSyncAI conversation thread that runs concurrently with the demo build but does not affect it.",
+    "importance": "supporting",
+    "depends_on": [
+      "e2"
+    ],
+    "sources": [
+      "audio",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e8",
+    "type": "attempt",
+    "start_s": 88.6,
+    "end_s": 120.7,
+    "summary": "Claude writes index.html (93 lines) and style.css (398 lines) into ~/Desktop/chatbot-demo.",
+    "explanation": "First two of three core files; the UI and styling are laid down before the JS logic.",
+    "importance": "essential",
+    "depends_on": [
+      "e6"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e9",
+    "type": "attempt",
+    "start_s": 119.2,
+    "end_s": 140.7,
+    "summary": "Claude writes app.js (178 lines) with mock response bank, chat rendering, auto-scroll, and typing indicator.",
+    "explanation": "Completes the three-file static demo; the mock logic here is what gets upgraded to real API later.",
+    "importance": "essential",
+    "depends_on": [
+      "e8"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e10",
+    "type": "insight",
+    "start_s": 128.0,
+    "end_s": 165.0,
+    "summary": "SportSyncAI Claude delivers its matching-layer analysis: Places mostly built, People zero, Experiences zero — and warns that the 'People' branch needs a separate consent/safety layer the other two don't.",
+    "explanation": "A significant product-architecture finding delivered in the background; it informs the 'explicit yes before coding' gate Mohammad later applies to that roadmap decision.",
+    "importance": "supporting",
+    "depends_on": [
+      "e7"
+    ],
+    "sources": [
+      "ocr",
+      "terminal"
+    ]
+  },
+  {
+    "event_id": "e11",
+    "type": "attempt",
+    "start_s": 143.7,
+    "end_s": 146.4,
+    "summary": "Claude starts a Python HTTP server on port 8743 and curls localhost; server returns HTTP 200.",
+    "explanation": "Server-up confirmation is the gate before browser verification — without this, the next step cannot proceed.",
+    "importance": "essential",
+    "depends_on": [
+      "e9"
+    ],
+    "sources": [
+      "terminal"
+    ]
+  },
+  {
+    "event_id": "e12",
+    "type": "attempt",
+    "start_s": 149.1,
+    "end_s": 199.8,
+    "summary": "Claude uses claude-in-chrome to navigate to localhost:8743, take screenshots, click into the input, type 'How does this work?', press Enter, and verify a mock reply appears.",
+    "explanation": "End-to-end browser verification of the mock-only demo — confirms UI renders, input works, and mock responses fire correctly.",
+    "importance": "essential",
+    "depends_on": [
+      "e11"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e13",
+    "type": "result",
+    "start_s": 202.0,
+    "end_s": 207.0,
+    "summary": "Claude reports: Enter-to-send works, keyword-matched mock replies appear, auto-scroll functions, no console errors — demo fully verified.",
+    "explanation": "Official verification checkpoint; mock-only demo is complete and working as specified in the brief.",
+    "importance": "essential",
+    "depends_on": [
+      "e12"
+    ],
+    "sources": [
+      "terminal",
+      "audio"
+    ]
+  },
+  {
+    "event_id": "e14",
+    "type": "surprising_moment",
+    "start_s": 226.6,
+    "end_s": 244.3,
+    "summary": "Mohammad says 'use my existing API keys'; Claude checks the environment and finds ANTHROPIC_API_KEY, ElevenLabs, Pexels, Replicate, and Blotato already available — then flags that embedding a key client-side in a static page would expose it visibly in DevTools during a public screen recording.",
+    "explanation": "This unexpected security catch changes the scope of the build: instead of staying mock-only or naively embedding a key, a proxy server must be built to protect the key on-camera.",
+    "importance": "essential",
+    "depends_on": [
+      "e13",
+      "e3"
+    ],
+    "sources": [
+      "terminal",
+      "ocr",
+      "audio"
+    ]
+  },
+  {
+    "event_id": "e15",
+    "type": "decision",
+    "start_s": 239.9,
+    "end_s": 245.1,
+    "summary": "Mohammad selects 'Local proxy server (Recommended)' — ANTHROPIC_API_KEY stays server-side, never reaches the browser or the recording.",
+    "explanation": "Determines the architecture for the real-API integration: a Python proxy on the same machine, not a bare static call.",
+    "importance": "essential",
+    "depends_on": [
+      "e14"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e16",
+    "type": "attempt",
+    "start_s": 288.8,
+    "end_s": 312.0,
+    "summary": "Claude writes server.py (local Python proxy), edits app.js to call /api/chat with a mock fallback, and patches server.py a second time to fix a log_message signature.",
+    "explanation": "Implements the proxy architecture chosen in e15; the fallback logic means the demo degrades gracefully if the proxy isn't running.",
+    "importance": "essential",
+    "depends_on": [
+      "e15",
+      "e9"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e17",
+    "type": "attempt",
+    "start_s": 316.6,
+    "end_s": 342.4,
+    "summary": "Claude starts the proxy with ANTHROPIC_API_KEY injected, then curls POST /api/chat with a test message; server responds `{\"reply\": \"hello\"}`.",
+    "explanation": "Proves the proxy is live and making real Anthropic API calls before browser verification begins.",
+    "importance": "essential",
+    "depends_on": [
+      "e16"
+    ],
+    "sources": [
+      "terminal"
+    ]
+  },
+  {
+    "event_id": "e18",
+    "type": "failure",
+    "start_s": 322.5,
+    "end_s": 326.9,
+    "summary": "claude-in-chrome file_upload fails with 'Element is no longer in the document: ref_186' when trying to attach the ecosystem PDF to the LEVORE Gmail draft.",
+    "explanation": "The Gmail attachment attempt (in the SportSyncAI thread) silently fails; Claude must re-find the file input before retrying.",
+    "importance": "supporting",
+    "depends_on": [
+      "e2"
+    ],
+    "sources": [
+      "terminal"
+    ]
+  },
+  {
+    "event_id": "e19",
+    "type": "attempt",
+    "start_s": 344.2,
+    "end_s": 360.6,
+    "summary": "Claude opens a new browser tab, navigates to localhost:8743, and the chatbot UI loads — showing the empty state with suggested prompts.",
+    "explanation": "Browser verification of the real-API version of the demo; required to confirm the proxy and updated JS work together end-to-end.",
+    "importance": "essential",
+    "depends_on": [
+      "e17"
+    ],
+    "sources": [
+      "terminal",
+      "ocr"
+    ]
+  },
+  {
+    "event_id": "e20",
+    "type": "demonstration",
+    "start_s": 352.8,
+    "end_s": 375.7,
+    "summary": "Claude types 'What's a good name for a tech YouTube channel?' into the demo and presses Enter; the chatbot returns a real multi-option answer with follow-up question — not a mock reply.",
+    "explanation": "Confirms the full live-API path is working: user input → proxy → Anthropic API → real response rendered in the chat UI.",
+    "importance": "essential",
+    "depends_on": [
+      "e19"
+    ],
+    "sources": [
+      "terminal",
+      "ocr",
+      "audio"
+    ]
+  },
+  {
+    "event_id": "e21",
+    "type": "surprising_moment",
+    "start_s": 372.1,
+    "end_s": 391.1,
+    "summary": "An unexpected Arabic message appears in the chat (not clearly sent by Mohammad from this timeline), prompting him to note something 'odd' in the UI; the recording ends mid-investigation with the demo open and a second curl to the live SportSyncAI endpoint running.",
+    "explanation": "The session ends before the source of the extra Arabic message is identified and before the final curl result is shown — no confirmed resolution of this anomaly in the timeline.",
+    "importance": "essential",
+    "depends_on": [
+      "e20"
+    ],
+    "sources": [
+      "ocr",
+      "audio",
+      "terminal"
+    ]
+  }
+]

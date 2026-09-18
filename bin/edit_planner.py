@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """Edit Planner: for one chosen story, produces a story map (narrative beats)
 and edit_plan.json (the actual EDL -- keep/remove/trim decisions, each with an
-explicit reason, never "because it's slow/static"). Then runs the same
-restart-detection backstop summarize_cut.py already needed against real data
-(summarize_cut.py:107).
+explicit reason, never "because it's slow/static"), reasoning over the FULL
+multi-source timeline (screen/OCR, audio if present, git, terminal activity).
+
+Cut-boundary candidates are kept separate from reasoning context: OCR/git/
+terminal timeline entries are single POINTS in time (a sample, a commit, a
+logged command) with no natural "end," so they inform WHAT happened but are
+not valid cut edges. Only scene-change timestamps (real visual boundaries)
+and audio-segment edges (real speech boundaries) are legitimate places to cut
+-- that's the set every decision must snap to.
 
 Usage:
     python3 bin/edit_planner.py session_001 s1
@@ -17,7 +23,8 @@ from lib import sessions as S
 from lib.ai_client import call_claude, extract_json
 
 PROMPT_TEMPLATE = """You are planning the edit for ONE story pulled from a longer recorded session
-of Mohammad building software while talking naturally. Produce two things:
+of Mohammad building software -- possibly screen-only with no narration, possibly with real audio,
+possibly with both. Produce two things:
 
 1. A STORY MAP: an ordered sequence of narrative beats (free-text labels -- e.g. hook, context,
    problem, failed_attempt, discovery, solution, result, lesson -- pick whatever beats actually fit
@@ -29,21 +36,33 @@ of Mohammad building software while talking naturally. Produce two things:
    - "keep": include this range as-is.
    - "remove": cut this range out entirely.
    - "trim": this range has dead air/repetition worth shortening but not fully removing -- give
-     trim_end_s: an ABSOLUTE timestamp marking where the kept portion ends (the range from
-     trim_end_s to end_s is dropped). trim_end_s MUST exactly equal one of the transcript segment
-     boundaries below, just like start_s/end_s -- never an arbitrary duration/offset. If no segment
-     boundary lands where you want to shorten it, use "remove" on the unwanted tail segment(s)
-     instead of "trim" on the whole range.
-   - EVERY decision needs a concrete "reason" -- never "it's slow" or "not visually interesting".
-     Valid reasons reference the story: "establishes X needed to understand Y", "repeats what was
-     already said at Z", "dead air with no content", etc.
+     trim_end_s: an ABSOLUTE timestamp marking where the kept portion ends. trim_end_s MUST exactly
+     equal one of the CUT-BOUNDARY CANDIDATES below, just like start_s/end_s -- never an arbitrary
+     duration/offset. If no boundary lands where you want to shorten it, use "remove" on the
+     unwanted tail instead of "trim" on the whole range.
+   - EVERY decision needs a concrete "reason" tied to the story -- never "it's slow" or "not
+     visually interesting". A silent stretch where the screen shows a real result appearing, or a
+     command finishing, is NOT dead air just because no one is talking -- check the timeline for
+     what's actually happening on screen before deciding it's cuttable.
    - NEVER remove or trim an "essential" event just because it's visually static or technical --
      only remove genuinely unnecessary/redundant content.
-   - start_s/end_s MUST exactly match transcript segment boundaries below -- never invent a
-     timestamp or cut a sentence in the middle. If in doubt, keep the extra segment rather than
-     risk a fragment.
-   - Mark "confidence": "certain" or "uncertain" per decision -- "uncertain" is for genuine judgment
-     calls Mohammad should double check, not a hedge on everything.
+   - start_s/end_s/trim_end_s MUST exactly match one of the CUT-BOUNDARY CANDIDATES listed below --
+     never invent a timestamp. If in doubt, keep the extra range rather than risk a bad cut.
+   - Mark "confidence": "certain" or "uncertain" per decision.
+   - Optionally set "speed" (e.g. 2.0) on a "keep" decision to speed through genuinely repetitive
+     or low-value activity that's still worth SHOWING but not at full length (e.g. watching a slow
+     build run) -- omit it (defaults to 1.0) otherwise.
+   - Optionally set "preserve_realtime": true on a decision that captures a real-time failure or
+     success moment that must play at normal speed, uncut, even if it looks static -- this
+     overrides any speed-up and signals "do not touch the pacing of this range."
+   - Optionally set "zoom_target" (a short phrase, e.g. "terminal output", "browser result") when
+     the viewer's attention should be directed at a specific area, and "highlight_note" (a short
+     phrase describing what should visually stand out, e.g. "the error message"). These are
+     editorial hints for a later visual pass -- describe intent, don't worry about exact pixels.
+   - IMPORTANT: if the timeline for this story ends mid-investigation or without a confirmed
+     resolution, the edit plan's last decision(s) and the story map's final beat must reflect that
+     honestly -- do not invent or imply a successful resolution that isn't actually evidenced in
+     the timeline.
 
 STORY:
 {story_block}
@@ -51,47 +70,58 @@ STORY:
 RELEVANT EVENTS:
 {events_block}
 
-RELEVANT TRANSCRIPT SEGMENTS (use these exact boundaries):
-{segments_block}
+RELEVANT TIMELINE (all sources, for context -- NOT all of these are valid cut points):
+{timeline_block}
+
+CUT-BOUNDARY CANDIDATES (start_s/end_s/trim_end_s must be one of these exact values):
+{boundaries_block}
 
 {preferences}
 
 OUTPUT valid JSON only, no other text, in this exact shape:
 {{"story_map": {{"story_id": "{story_id}", "beats": [{{"beat": "...", "event_ids": [...], "start_s": 0, "end_s": 0}}]}},
   "edit_plan": [{{"decision": "keep|remove|trim", "start_s": 0, "end_s": 0, "trim_end_s": 0,
-                  "event_ids": [], "reason": "...", "confidence": "certain|uncertain"}}]}}
-(omit trim_end_s entirely for keep/remove decisions)"""
+                  "event_ids": [], "reason": "...", "confidence": "certain|uncertain",
+                  "speed": 1.0, "preserve_realtime": false, "zoom_target": "", "highlight_note": ""}}]}}
+(omit trim_end_s for keep/remove; omit speed/preserve_realtime/zoom_target/highlight_note when not applicable)"""
 
 
-def relevant_segments(segments, lo, hi):
-    return [s for s in segments if s["end_s"] > lo - 0.01 and s["start_s"] < hi + 0.01]
+def load_boundaries(sdir, lo: float, hi: float, pad: float = 0.5) -> list:
+    """Legit cut edges only: scene-change (OCR sample) timestamps and, if
+    audio exists, transcript segment start/end -- NOT raw git/terminal points,
+    which mark real-world events but have no natural video-cut edge."""
+    timeline = S.load_json(sdir / "timeline.json")
+    boundaries = {round(e["t"], 2) for e in timeline if e["source"] == "ocr"}
+    transcript_path = sdir / "transcript.json"
+    if transcript_path.exists():
+        segs = S.load_json(transcript_path)
+        boundaries |= {s["start_s"] for s in segs} | {s["end_s"] for s in segs}
+    return sorted(b for b in boundaries if lo - pad <= b <= hi + pad)
 
 
-def validate_edit_plan(edit_plan, segments, warn_tolerance=0.05, max_tolerance=2.0):
-    """Hard gate against the exact bug class this prompt already warns about in
-    prose: the LLM was told 'never invent a timestamp' but a free-floating
-    trim_to_s duration (since replaced with trim_end_s) once landed mid-word
-    ("It re-" instead of "It replies..."). A prompt instruction alone didn't
-    catch it -- every start_s/end_s/trim_end_s is snapped to the real transcript
-    boundary it's nearest to (never left floating mid-segment), which is also
-    the safe direction here -- e.g. a slightly-short end_s that lands inside a
-    sentence gets extended to include the whole sentence, matching this
-    codebase's own "when in doubt, keep the extra segment" rule. Beyond
-    max_tolerance the gap is too large to be rounding and is treated as a
-    genuine fabrication -- refused, not silently guessed at."""
-    boundaries = sorted({s["start_s"] for s in segments} | {s["end_s"] for s in segments})
+def relevant_timeline(sdir, lo: float, hi: float, pad: float = 0.5) -> list:
+    timeline = S.load_json(sdir / "timeline.json")
+    return [e for e in timeline if lo - pad <= e["t"] <= hi + pad]
+
+
+def validate_edit_plan(edit_plan: list, boundaries: list, tolerance=0.05, max_tolerance=2.0) -> list:
+    """Hard gate, not just a prompt instruction (a prompt-only version of this
+    rule already failed once in this project's own history on this exact
+    pipeline -- see git history / session learnings). Every timestamp is
+    snapped to the nearest real boundary; beyond max_tolerance it's refused as
+    a likely fabrication rather than silently guessed at."""
+    if not boundaries:
+        raise ValueError("No cut-boundary candidates available for this story's time range -- "
+                          "cannot validate an edit plan against nothing.")
 
     def snap_or_raise(label, value, decision):
         nearest = min(boundaries, key=lambda b: abs(b - value))
         gap = abs(nearest - value)
         if gap > max_tolerance:
-            raise ValueError(
-                f"{label}={value} in decision {decision} is {gap:.2f}s from the nearest real "
-                f"transcript boundary ({nearest}) -- looks like an invented timestamp, not a "
-                f"segment edge. Refusing to compile this into a cut."
-            )
-        if gap > warn_tolerance:
-            print(f"  ⚠ Snapped {label} {value} -> {nearest} ({gap:.2f}s) to land on a real segment boundary")
+            raise ValueError(f"{label}={value} in decision {decision} is {gap:.2f}s from the nearest "
+                              f"real boundary ({nearest}) -- looks fabricated, refusing to compile.")
+        if gap > tolerance:
+            print(f"  ⚠ Snapped {label} {value} -> {nearest} ({gap:.2f}s)")
         return nearest
 
     fixed = []
@@ -103,25 +133,10 @@ def validate_edit_plan(edit_plan, segments, warn_tolerance=0.05, max_tolerance=2
             if "trim_end_s" not in d:
                 raise ValueError(f"trim decision missing trim_end_s: {d}")
             d["trim_end_s"] = snap_or_raise("trim_end_s", d["trim_end_s"], d)
+        d.setdefault("speed", 1.0)
+        d.setdefault("preserve_realtime", False)
         fixed.append(d)
     return fixed
-
-
-# NOTE: the original plan called for reusing summarize_cut.py's
-# drop_restarted_takes() here as a backstop against restarted/redone takes.
-# Tested against real output (session_001/s1) at both blob granularity and
-# corrected per-segment granularity, and in both cases it produced ONLY false
-# positives on this data -- every flagged pair, checked by hand against the
-# source transcript, turned out to be two distinct, unrelated sentences that
-# merely shared a short common word ("that", "up", "mock"), including one that
-# deleted the story's central discovery sentence (e4). That function's design
-# (45s window, 0.5 word-overlap over a 4-word floor) is calibrated for
-# near-verbatim screen-recording retakes, which is a different regime from a
-# clean single narration pass being cut by story logic -- it doesn't transfer,
-# so it's intentionally NOT applied here. If a real multi-hour session later
-# surfaces an actual missed restart, that's the point to build a backstop
-# tuned for THIS data (e.g. much higher similarity + longer minimum length),
-# not to reapply this one on the assumption it would generalize.
 
 
 def main():
@@ -133,7 +148,6 @@ def main():
     sdir = S.session_dir(args.session_id)
     events = S.load_json(sdir / "events.json")
     stories = S.load_json(sdir / "stories.json")
-    segments = S.load_json(sdir / "transcript.json")
 
     story = next((s for s in stories if s["story_id"] == args.story_id), None)
     if story is None:
@@ -145,23 +159,24 @@ def main():
         raise ValueError(f"Story {args.story_id} has no resolvable events")
     lo = min(e["start_s"] for e in story_events)
     hi = max(e["end_s"] for e in story_events)
-    seg_slice = relevant_segments(segments, lo, hi)
+
+    timeline_slice = relevant_timeline(sdir, lo, hi)
+    boundaries = load_boundaries(sdir, lo, hi)
 
     events_block = "\n".join(
-        f"[{e['event_id']}] {e['type']} {e['start_s']:.1f}-{e['end_s']:.1f}s: {e['summary']}"
+        f"[{e['event_id']}] {e['type']} {e['start_s']:.1f}-{e['end_s']:.1f}s [{','.join(e.get('sources', []))}]: {e['summary']}"
         for e in story_events
     )
-    segments_block = "\n".join(
-        f"[{s['id']}] {s['start_s']:.1f}-{s['end_s']:.1f}s: {s['text']}" for s in seg_slice
-    )
+    timeline_block = "\n".join(f"[{e['source']}] {e['t']:.1f}s: {e['data']}" for e in timeline_slice)
+    boundaries_block = ", ".join(f"{b:.2f}" for b in boundaries)
     story_block = (
         f"Title: {story['title']}\nCentral idea: {story['central_idea']}\n"
         f"Audience: {story['audience']}\nCategory: {story['category']}"
     )
 
     prompt = PROMPT_TEMPLATE.format(
-        story_block=story_block, events_block=events_block, segments_block=segments_block,
-        story_id=args.story_id, preferences=S.load_preferences_text(),
+        story_block=story_block, events_block=events_block, timeline_block=timeline_block,
+        boundaries_block=boundaries_block, story_id=args.story_id, preferences=S.load_preferences_text(),
     )
 
     print(f"🧠 Planning edit for story {args.story_id}: {story['title']}...")
@@ -169,7 +184,7 @@ def main():
     parsed = extract_json(response)
     story_map, edit_plan = parsed["story_map"], parsed["edit_plan"]
 
-    edit_plan = validate_edit_plan(edit_plan, seg_slice)
+    edit_plan = validate_edit_plan(edit_plan, boundaries)
 
     out_dir = S.story_dir(args.session_id, args.story_id, create=True)
     S.save_json(out_dir / "story_map.json", story_map)
@@ -178,7 +193,8 @@ def main():
 
     kept = [d for d in edit_plan if d["decision"] in ("keep", "trim")]
     kept_s = sum((d["trim_end_s"] if d["decision"] == "trim" else d["end_s"]) - d["start_s"] for d in kept)
-    print(f"✓ {len(edit_plan)} decisions ({len(kept)} kept, ~{kept_s:.0f}s)")
+    sped = [d for d in kept if d.get("speed", 1.0) != 1.0]
+    print(f"✓ {len(edit_plan)} decisions ({len(kept)} kept, ~{kept_s:.0f}s raw, {len(sped)} sped up)")
     print(f"  Next: python3 bin/rough_cut.py {args.session_id} {args.story_id}")
 
 

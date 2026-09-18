@@ -1,0 +1,77 @@
+{
+  "story_id": "s1",
+  "beats": [
+    {
+      "beat": "hook",
+      "event_ids": [
+        "e1"
+      ],
+      "start_s": 0,
+      "end_s": 22.84
+    },
+    {
+      "beat": "context",
+      "event_ids": [
+        "e3",
+        "e4"
+      ],
+      "start_s": 22.84,
+      "end_s": 60.0
+    },
+    {
+      "beat": "build",
+      "event_ids": [
+        "e5",
+        "e6",
+        "e8",
+        "e9"
+      ],
+      "start_s": 60.0,
+      "end_s": 143.44
+    },
+    {
+      "beat": "mock_verification",
+      "event_ids": [
+        "e11",
+        "e12",
+        "e13"
+      ],
+      "start_s": 143.44,
+      "end_s": 207.0
+    },
+    {
+      "beat": "decision",
+      "event_ids": [
+        "e15"
+      ],
+      "start_s": 239.9,
+      "end_s": 245.18
+    },
+    {
+      "beat": "live_api_upgrade",
+      "event_ids": [
+        "e16",
+        "e17"
+      ],
+      "start_s": 288.0,
+      "end_s": 342.4
+    },
+    {
+      "beat": "live_demo",
+      "event_ids": [
+        "e19",
+        "e20"
+      ],
+      "start_s": 344.2,
+      "end_s": 375.0
+    },
+    {
+      "beat": "open_investigation",
+      "event_ids": [
+        "e21"
+      ],
+      "start_s": 372.1,
+      "end_s": 391.0
+    }
+  ]
+}

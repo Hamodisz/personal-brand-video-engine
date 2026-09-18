@@ -10,5 +10,5 @@ CLAUDE.md
 .env
 .env.*
 sessions/*/normalized.mp4
-sessions/*/stories/*/rough_cut.mp4
+sessions/*/stories/*/*.mp4
 public/.session_preview_backup/

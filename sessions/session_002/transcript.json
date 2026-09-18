@@ -1,0 +1,278 @@
+[
+  {
+    "id": 0,
+    "start_s": 0.0,
+    "end_s": 7.96,
+    "text": "This recording has two separate things going on in two different windows. I'll call out which one is which as we go."
+  },
+  {
+    "id": 1,
+    "start_s": 9.58,
+    "end_s": 22.84,
+    "text": "On the left, three panes are open in my Sportsync AI main project. Right now they're mostly old, already finished conversations sitting on screen, cleaning up some Alama models and test projects to free up disk space."
+  },
+  {
+    "id": 2,
+    "start_s": 22.84,
+    "end_s": 31.92,
+    "text": "On the right is a completely separate project folder, where I'm about to build a quick chatbot demo for my personal brand content."
+  },
+  {
+    "id": 3,
+    "start_s": 44.22,
+    "end_s": 52.44,
+    "text": "I gave it a strict brief. No real API keys, no real backend, mock responses only, its own isolated folder."
+  },
+  {
+    "id": 4,
+    "start_s": 52.44,
+    "end_s": 52.82,
+    "text": "And now I'm going to build a quick chatbot demo for my personal brand content."
+  },
+  {
+    "id": 5,
+    "start_s": 52.82,
+    "end_s": 55.58,
+    "text": "And don't touch any of my existing project files."
+  },
+  {
+    "id": 6,
+    "start_s": 55.86,
+    "end_s": 59.92,
+    "text": "Claude just confirmed it's building this fully outside my other tracked projects."
+  },
+  {
+    "id": 7,
+    "start_s": 60.2,
+    "end_s": 61.24,
+    "text": "And it's starting now."
+  },
+  {
+    "id": 8,
+    "start_s": 82.82,
+    "end_s": 111.98,
+    "text": "Meanwhile, back in the Sportsync AI window, I pulled up a matching layer diagram, people, places, and experiences, and asked for it explained simply since I'm busy watching the other build happen."
+  },
+  {
+    "id": 9,
+    "start_s": 112.82,
+    "end_s": 116.84,
+    "text": "They say the Sync is basically all environments, but the idea personally is that if you were building the data, It has a number of places to fit in."
+  },
+  {
+    "id": 10,
+    "start_s": 116.96,
+    "end_s": 126.36,
+    "text": "Let's imagine there's a node called a"
+  },
+  {
+    "id": 11,
+    "start_s": 126.52,
+    "end_s": 130.7,
+    "text": "DSP that can run on up to 300,000"
+  },
+  {
+    "id": 12,
+    "start_s": 130.88,
+    "end_s": 133.24,
+    "text": "sites, and then say it's 30,000"
+  },
+  {
+    "id": 13,
+    "start_s": 133.42,
+    "end_s": 135.12,
+    "text": "neds Huh."
+  },
+  {
+    "id": 14,
+    "start_s": 135.26,
+    "end_s": 138.68,
+    "text": "And then then the data coaching session that's going to be months."
+  },
+  {
+    "id": 15,
+    "start_s": 138.88,
+    "end_s": 140.74,
+    "text": "It's that is exactly because MSeri.at"
+  },
+  {
+    "id": 16,
+    "start_s": 140.94,
+    "end_s": 141.8,
+    "text": "deals with."
+  },
+  {
+    "id": 17,
+    "start_s": 141.94,
+    "end_s": 142.68,
+    "text": "It,"
+  },
+  {
+    "id": 18,
+    "start_s": 142.82,
+    "end_s": 143.44,
+    "text": "you"
+  },
+  {
+    "id": 19,
+    "start_s": 172.82,
+    "end_s": 186.76,
+    "text": "While the chatbot demo keeps building in the background, I'm just browsing some of my old GitHub templates. Killing time."
+  },
+  {
+    "id": 20,
+    "start_s": 202.82,
+    "end_s": 228.62,
+    "text": "In that same Sportsync AI window, a separate conversation turns to something completely unrelated to the chatbot demo."
+  },
+  {
+    "id": 21,
+    "start_s": 228.62,
+    "end_s": 232.8,
+    "text": "Whether to issue a real API key to an outside partner for Sportsync AI or not, I'm just browsing."
+  },
+  {
+    "id": 22,
+    "start_s": 232.82,
+    "end_s": 245.18,
+    "text": "This is a business and valuation decision, not about the demo at all. The concern here is different. Rate limiting a partner's access and being able to revoke it, not client-side exposure."
+  },
+  {
+    "id": 23,
+    "start_s": 251.52,
+    "end_s": 262.78,
+    "text": "Back in the personal brand window, the chatbot demo is now working with mock replies. No console errors. Before wiring in anything real, Claude checks what's actually in my environment."
+  },
+  {
+    "id": 24,
+    "start_s": 262.82,
+    "end_s": 269.58,
+    "text": "And finds real API keys already sitting there. Anthropic. 11 Labs. Pexels. A few others."
+  },
+  {
+    "id": 25,
+    "start_s": 271.54,
+    "end_s": 279.06,
+    "text": "It flags that wiring one straight into client-side JavaScript would make it visible on-screen or in DevTools during this exact recording."
+  },
+  {
+    "id": 26,
+    "start_s": 279.42,
+    "end_s": 285.1,
+    "text": "And asks how I want to handle it. I tell it, keep it server-side only, through a local proxy."
+  },
+  {
+    "id": 27,
+    "start_s": 292.82,
+    "end_s": 305.5,
+    "text": "GRAPHIC VALUE"
+  },
+  {
+    "id": 28,
+    "start_s": 305.52,
+    "end_s": 309.14,
+    "text": "Go to the"
+  },
+  {
+    "id": 29,
+    "start_s": 309.36,
+    "end_s": 313.28,
+    "text": "GMO"
+  },
+  {
+    "id": 30,
+    "start_s": 313.3,
+    "end_s": 314.48,
+    "text": "Self-Evaluated"
+  },
+  {
+    "id": 31,
+    "start_s": 314.5,
+    "end_s": 315.7,
+    "text": "Ex motivating"
+  },
+  {
+    "id": 32,
+    "start_s": 315.74,
+    "end_s": 317.88,
+    "text": "lifeline"
+  },
+  {
+    "id": 33,
+    "start_s": 317.92,
+    "end_s": 318.56,
+    "text": "muy"
+  },
+  {
+    "id": 34,
+    "start_s": 318.58,
+    "end_s": 320.7,
+    "text": "la"
+  },
+  {
+    "id": 35,
+    "start_s": 320.72,
+    "end_s": 321.64,
+    "text": "MLM"
+  },
+  {
+    "id": 36,
+    "start_s": 321.7,
+    "end_s": 322.42,
+    "text": "WordCamp"
+  },
+  {
+    "id": 37,
+    "start_s": 322.44,
+    "end_s": 322.7,
+    "text": "EVIP"
+  },
+  {
+    "id": 38,
+    "start_s": 322.7,
+    "end_s": 322.8,
+    "text": "RT.Tk"
+  },
+  {
+    "id": 39,
+    "start_s": 322.82,
+    "end_s": 334.36,
+    "text": "So it rewrites the server to make the real anthropic call from the backend, with the"
+  },
+  {
+    "id": 40,
+    "start_s": 334.36,
+    "end_s": 337.94,
+    "text": "mock reply kept only as a fallback if that proxy isn't running."
+  },
+  {
+    "id": 41,
+    "start_s": 352.82,
+    "end_s": 362.86,
+    "text": "Let's test it. In English first. What's a good name for a tech YouTube channel? And"
+  },
+  {
+    "id": 42,
+    "start_s": 362.86,
+    "end_s": 372.1,
+    "text": "there's a real generated answer. Not a mock one."
+  },
+  {
+    "id": 43,
+    "start_s": 372.1,
+    "end_s": 377.2,
+    "text": "Now in Arabic. Just to check. And yes. It replies naturally in Arabic too."
+  },
+  {
+    "id": 44,
+    "start_s": 382.82,
+    "end_s": 388.56,
+    "text": "So, two separate threads in one recording, a business decision about partner API access"
+  },
+  {
+    "id": 45,
+    "start_s": 388.56,
+    "end_s": 392.8,
+    "text": "on one side, and a proactive security catch on a demo I asked to be"
+  }
+]

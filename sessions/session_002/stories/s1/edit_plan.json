@@ -1,0 +1,259 @@
+[
+  {
+    "decision": "keep",
+    "start_s": 0.0,
+    "end_s": 9.58,
+    "event_ids": [
+      "e1"
+    ],
+    "reason": "Mohammad orients the viewer to the dual-window setup; the audio narration at 0.0s and 9.6s establishes the two-project context essential to the whole story.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "remove",
+    "start_s": 9.58,
+    "end_s": 22.84,
+    "event_ids": [],
+    "reason": "OCR shows the SportSyncAI left-pane conversations (matching layer, WhatsApp cleanup, outreach emails) — none of this is relevant to the chatbot demo story; the audio narration about the left window is already captured in the hook and the next beat covers the right window.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 22.84,
+    "end_s": 60.0,
+    "event_ids": [
+      "e3",
+      "e4"
+    ],
+    "reason": "Mohammad's audio explains the personal-brand chatbot brief (mock only, isolated folder, no real API), and Claude's confirmation of zero-dependency static build outside all tracked repos — essential framing beats.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 60.0,
+    "end_s": 72.0,
+    "event_ids": [
+      "e5"
+    ],
+    "reason": "Claude runs ls on Desktop to confirm no conflicts, then mkdir — shows the safety-first isolation step before touching any files.",
+    "confidence": "certain",
+    "zoom_target": "terminal output",
+    "highlight_note": "mkdir -p ~/Desktop/chatbot-demo command and clean directory listing",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 72.0,
+    "end_s": 90.0,
+    "event_ids": [
+      "e6"
+    ],
+    "reason": "Directory created; Claude declares isolation from personal-brand, SportSyncAI-Main, and every other tracked repo — payoff of the safety check.",
+    "confidence": "certain",
+    "zoom_target": "terminal output",
+    "highlight_note": "empty chatbot-demo directory listing confirming isolation",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 90.0,
+    "end_s": 120.0,
+    "event_ids": [
+      "e8"
+    ],
+    "reason": "Claude writes index.html (93 lines) and style.css (398 lines) — core build action, files appearing on screen is the substance of the 'build in one session' claim.",
+    "confidence": "certain",
+    "speed": 1.5,
+    "zoom_target": "terminal write output",
+    "highlight_note": "file creation confirmations and line counts",
+    "preserve_realtime": false
+  },
+  {
+    "decision": "remove",
+    "start_s": 120.0,
+    "end_s": 126.36,
+    "event_ids": [],
+    "reason": "Audio during this stretch is Mohammad commenting on the unrelated SportSyncAI matching-layer discussion; screen shows style.css write completing which is already captured in the prior segment boundary.",
+    "confidence": "uncertain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 126.36,
+    "end_s": 143.44,
+    "event_ids": [
+      "e9"
+    ],
+    "reason": "Claude writes app.js (178 lines) with mock response bank, typing indicator, auto-scroll — completes the three-file build; Claude's narration 'Now I'll start a local server and verify it in the browser before reporting back' sets up the verification beat.",
+    "confidence": "certain",
+    "zoom_target": "terminal write output",
+    "highlight_note": "app.js 178 lines written, comment confirming mock-only responses",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 143.44,
+    "end_s": 150.0,
+    "event_ids": [
+      "e11"
+    ],
+    "reason": "Claude starts Python HTTP server on port 8743 and curls localhost; server returns HTTP 200 — the first real confirmation the demo runs.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal output",
+    "highlight_note": "HTTP 200 response confirming server is live",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 150.0,
+    "end_s": 202.82,
+    "event_ids": [
+      "e12"
+    ],
+    "reason": "Claude uses claude-in-chrome to navigate to localhost:8743, take screenshots, click input, type 'How does this work?', press Enter, and capture the mock reply appearing — the actual browser verification sequence.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "browser chatbot UI",
+    "highlight_note": "mock reply appearing after Enter keypress",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 202.82,
+    "end_s": 213.0,
+    "event_ids": [
+      "e13"
+    ],
+    "reason": "Claude reports: Enter-to-send works, keyword-matched mock replies appear, auto-scroll functions, no console errors — the full mock-demo verified result. Audio at 202.8s confirms a separate unrelated conversation is happening on the left but this terminal output is the payoff of the mock phase.",
+    "confidence": "certain",
+    "zoom_target": "terminal output",
+    "highlight_note": "no console errors, demo fully verified summary",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "remove",
+    "start_s": 213.0,
+    "end_s": 227.1,
+    "event_ids": [],
+    "reason": "Dead period between mock verification and the API-key decision prompt — screen shows SportSyncAI left-pane activity (GitHub browsing, LEVORE email) entirely unrelated to the chatbot demo story.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 227.1,
+    "end_s": 245.18,
+    "event_ids": [
+      "e15"
+    ],
+    "reason": "Claude finds ANTHROPIC_API_KEY in environment, flags the client-side exposure risk, presents three options. Mohammad selects 'Local proxy server (Recommended)' — the security decision moment and pivot from mock to live API.",
+    "confidence": "certain",
+    "zoom_target": "Claude Code prompt with three API approach options",
+    "highlight_note": "'Local proxy server (Recommended)' option and Mohammad's selection",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 245.18,
+    "end_s": 252.0,
+    "event_ids": [],
+    "reason": "Short transition as Claude acknowledges the proxy choice and begins acting; audio at 251.5s narrates the state of play — bridges decision to implementation.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "remove",
+    "start_s": 252.0,
+    "end_s": 288.0,
+    "event_ids": [],
+    "reason": "Claude is doing SportSyncAI-side work (partner kit git history, GitHub repo checks, LEVORE email attachment via claude-in-chrome) — none of this is part of the chatbot demo story; the chatbot proxy write begins at 288.8s.",
+    "confidence": "certain",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 288.0,
+    "end_s": 312.0,
+    "event_ids": [
+      "e16"
+    ],
+    "reason": "Claude writes server.py (local Python proxy), edits app.js to call /api/chat with mock fallback, patches server.py a second time to fix the log_message signature — the actual live-API upgrade implementation.",
+    "confidence": "certain",
+    "speed": 1.5,
+    "zoom_target": "terminal write and edit output",
+    "highlight_note": "server.py created, app.js updated with real API call + mock fallback",
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 312.0,
+    "end_s": 342.0,
+    "event_ids": [
+      "e17"
+    ],
+    "reason": "Claude starts the proxy with ANTHROPIC_API_KEY injected, curls POST /api/chat; server responds with {\"reply\": \"hello\"} — the first confirmed real Claude API response through the proxy.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "terminal curl output",
+    "highlight_note": "{\"reply\": \"hello\"} confirming live API call succeeded",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 342.0,
+    "end_s": 358.7,
+    "event_ids": [
+      "e19"
+    ],
+    "reason": "Claude opens new browser tab, navigates to localhost:8743, chatbot UI loads with empty state and suggested prompts visible — sets up the live end-to-end demonstration.",
+    "confidence": "certain",
+    "zoom_target": "browser chatbot UI empty state",
+    "highlight_note": "polished chatbot UI loading with suggested prompts",
+    "speed": 1.0,
+    "preserve_realtime": false
+  },
+  {
+    "decision": "keep",
+    "start_s": 358.7,
+    "end_s": 375.0,
+    "event_ids": [
+      "e20"
+    ],
+    "reason": "Claude types 'What's a good name for a tech YouTube channel?' and presses Enter; the chatbot returns a real multi-option answer with follow-up question — the climactic live-API moment proving the full stack works.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "browser chatbot response",
+    "highlight_note": "real multi-option Claude answer appearing — not a mock reply",
+    "speed": 1.0
+  },
+  {
+    "decision": "keep",
+    "start_s": 375.0,
+    "end_s": 391.0,
+    "event_ids": [
+      "e21"
+    ],
+    "reason": "An unexpected Arabic message appears in the chat; Mohammad notes something odd. Recording ends mid-investigation. This unresolved moment must be included honestly — it is the final beat of the timeline as recorded and the story map marks it as open_investigation, not a clean ending.",
+    "confidence": "certain",
+    "preserve_realtime": true,
+    "zoom_target": "browser chatbot UI",
+    "highlight_note": "unexpected Arabic message appearing — source unclear, investigation ongoing at cut",
+    "speed": 1.0
+  }
+]

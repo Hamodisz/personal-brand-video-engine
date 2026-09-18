@@ -1,0 +1,197 @@
+[
+  {
+    "story_id": "s1",
+    "title": "I Built a Personal-Brand Chatbot Demo in One Session (Mock to Live API)",
+    "category": "build_in_public",
+    "central_idea": "You can go from zero to a fully working, live-API personal-brand chatbot demo in a single focused session using Claude as your builder.",
+    "audience": "Developers and creators who want to ship fast with AI assistance and are curious about AI-assisted prototyping workflows.",
+    "required_events": [
+      "e1",
+      "e3",
+      "e4",
+      "e5",
+      "e6",
+      "e8",
+      "e9",
+      "e11",
+      "e12",
+      "e13",
+      "e20"
+    ],
+    "optional_events": [
+      "e15",
+      "e16",
+      "e17",
+      "e19",
+      "e21"
+    ],
+    "unnecessary_events": [
+      "e2",
+      "e7",
+      "e10",
+      "e14",
+      "e18"
+    ],
+    "hook_candidates": [
+      "I asked Claude to build me a personal-brand chatbot demo from scratch — no existing code, no npm, no setup headaches. Here's what happened.",
+      "Zero to working chatbot in one session. Let me show you exactly how it went.",
+      "What does it look like when you let Claude write every single file for a project? I recorded the whole thing."
+    ]
+  },
+  {
+    "story_id": "s2",
+    "title": "Claude Caught My API Key Mistake Before I Exposed It on Camera",
+    "category": "mistake_failure",
+    "central_idea": "Claude proactively flagged a serious API key security risk I hadn't thought about — embedding a secret key in a static page that would be visible in DevTools during a public screen recording.",
+    "audience": "Developers and content creators who demo or screen-record their work and may not think carefully about credential exposure.",
+    "required_events": [
+      "e3",
+      "e4",
+      "e13",
+      "e14",
+      "e15",
+      "e16",
+      "e17",
+      "e20"
+    ],
+    "optional_events": [
+      "e8",
+      "e9",
+      "e11",
+      "e12",
+      "e19"
+    ],
+    "unnecessary_events": [
+      "e1",
+      "e2",
+      "e5",
+      "e6",
+      "e7",
+      "e10",
+      "e18",
+      "e21"
+    ],
+    "hook_candidates": [
+      "I was about to expose my Anthropic API key live on camera — Claude stopped me.",
+      "The brief said 'use my existing API keys.' Claude said: not so fast. Here's why that was the right call.",
+      "I didn't think about DevTools. Claude did. This is what good AI assistance actually looks like."
+    ]
+  },
+  {
+    "story_id": "s3",
+    "title": "How to Add a Local Proxy Server So Your API Key Never Touches the Browser",
+    "category": "tutorial",
+    "central_idea": "When you need real API calls in a static demo without exposing your key, a tiny local Python proxy server is the cleanest solution.",
+    "audience": "Developers building static front-end demos or screen-recorded content who need live API calls but want to keep credentials server-side.",
+    "required_events": [
+      "e14",
+      "e15",
+      "e16",
+      "e17",
+      "e19",
+      "e20"
+    ],
+    "optional_events": [
+      "e3",
+      "e4",
+      "e13"
+    ],
+    "unnecessary_events": [
+      "e1",
+      "e2",
+      "e5",
+      "e6",
+      "e7",
+      "e8",
+      "e9",
+      "e10",
+      "e11",
+      "e12",
+      "e18",
+      "e21"
+    ],
+    "hook_candidates": [
+      "Static HTML demo + real API calls + no exposed key. Here's the exact pattern that makes it work.",
+      "One Python file. That's all it takes to keep your API key off the browser and out of the recording.",
+      "If you're ever demoing a chatbot live, you need this proxy trick before you hit record."
+    ]
+  },
+  {
+    "story_id": "s4",
+    "title": "The Weird Arabic Message That Appeared Out of Nowhere in My Chatbot Demo",
+    "category": "story",
+    "central_idea": "Just when the demo was working perfectly, an unexplained Arabic message appeared in the chat UI — and the session ended before anyone figured out why.",
+    "audience": "Builders and developers who enjoy honest, unedited accounts of the strange bugs that appear at the end of otherwise successful sessions.",
+    "required_events": [
+      "e13",
+      "e20",
+      "e21"
+    ],
+    "optional_events": [
+      "e3",
+      "e16",
+      "e17",
+      "e19"
+    ],
+    "unnecessary_events": [
+      "e1",
+      "e2",
+      "e4",
+      "e5",
+      "e6",
+      "e7",
+      "e8",
+      "e9",
+      "e10",
+      "e11",
+      "e12",
+      "e14",
+      "e15",
+      "e18"
+    ],
+    "hook_candidates": [
+      "The demo was working. Everything was verified. Then a random Arabic message appeared and nobody knows where it came from.",
+      "We finished the build, confirmed live API responses — and then this happened.",
+      "I ended the session mid-investigation. Here's the unsolved mystery from my last build."
+    ]
+  },
+  {
+    "story_id": "s5",
+    "title": "Running Two AI Conversations at Once: What I Learned About Parallel Context",
+    "category": "case_study",
+    "central_idea": "Managing two simultaneous Claude conversations — one building a demo, one analysing a product architecture — shows both the power and the cognitive load of parallel AI-assisted work.",
+    "audience": "Power users of AI coding tools and founders who use Claude or similar tools across multiple workstreams at the same time.",
+    "required_events": [
+      "e1",
+      "e3",
+      "e7",
+      "e10",
+      "e13"
+    ],
+    "optional_events": [
+      "e2",
+      "e4",
+      "e8",
+      "e9",
+      "e14",
+      "e20"
+    ],
+    "unnecessary_events": [
+      "e5",
+      "e6",
+      "e11",
+      "e12",
+      "e15",
+      "e16",
+      "e17",
+      "e18",
+      "e19",
+      "e21"
+    ],
+    "hook_candidates": [
+      "I had two Claude conversations running at the same time — one building my chatbot, one auditing my product architecture. Here's what that's actually like.",
+      "Most people use AI one task at a time. I ran two parallel sessions simultaneously. The results were interesting.",
+      "While Claude was building my demo on the right, it was flagging a major product gap on the left. This is the future of AI-assisted work."
+    ]
+  }
+]

@@ -13,7 +13,7 @@ SESSIONS_DIR = ROOT / "sessions"
 PREFERENCES_PATH = SESSIONS_DIR / "preferences.json"
 
 STATUSES = [
-    "ingested", "transcribed", "events_mined", "stories_mined",
+    "ingested", "signals_extracted", "events_mined", "stories_mined",
     "planned", "rough_cut", "reviewed",
 ]
 

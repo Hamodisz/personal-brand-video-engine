@@ -62,6 +62,31 @@ def ensure_ffmpeg_on_path() -> None:
     os.environ["PATH"] = f"{_path_shim_dir}:{os.environ.get('PATH', '')}"
 
 
+def get_duration(video_path) -> float:
+    import re
+    ffmpeg = resolve_ffmpeg()
+    out = subprocess.run([ffmpeg, "-i", str(video_path)], capture_output=True, text=True).stderr
+    m = re.search(r"Duration: (\d+):(\d+):([\d.]+)", out)
+    if not m:
+        raise RuntimeError(f"Could not read duration of {video_path}")
+    h, mi, s = m.groups()
+    return int(h) * 3600 + int(mi) * 60 + float(s)
+
+
+def get_creation_time(video_path):
+    """Read the container's creation_time tag (screen recordings via QuickTime/
+    ReplayKit embed this) -- gives the real wall-clock start of a recording,
+    needed to correlate git/Claude-Code-session timestamps against it."""
+    import re
+    ffmpeg = resolve_ffmpeg()
+    out = subprocess.run([ffmpeg, "-i", str(video_path)], capture_output=True, text=True).stderr
+    m = re.search(r"creation_time\s*:\s*(\S+)", out)
+    if not m:
+        return None
+    from datetime import datetime
+    return datetime.fromisoformat(m.group(1).replace("Z", "+00:00"))
+
+
 def load_summarize_cut():
     """Import bin/summarize_cut.py as a module and point its FFMPEG constant
     at a working binary, without editing the file on disk."""

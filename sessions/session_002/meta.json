@@ -1,0 +1,21 @@
+{
+  "session_id": "session_002",
+  "slug": "personal-brand-chatbot-demo-build-multim",
+  "recorded_at": "2026-09-18T14:35:17.868832+00:00",
+  "raw_video_path": "/private/tmp/claude-501/-Users-mohammadal-saati-Desktop-personal-brand/ebd2caa6-928a-4c97-b61b-cd292a1bf023/scratchpad/session002_source_hq.mp4",
+  "normalized_video_path": "/Users/mohammadal-saati/Desktop/personal-brand/sessions/session_002/normalized.mp4",
+  "topic_note": "personal-brand chatbot demo build, multimodal test",
+  "duration_s": 392.81,
+  "wall_clock_start": "2026-09-17T19:19:03+00:00",
+  "repos": [
+    "/Users/mohammadal-saati/Desktop/personal-brand",
+    "/Users/mohammadal-saati/Desktop/SportSyncAI-Main"
+  ],
+  "has_audio": true,
+  "signals_used": [
+    "audio",
+    "ocr",
+    "terminal"
+  ],
+  "status": "rough_cut"
+}
